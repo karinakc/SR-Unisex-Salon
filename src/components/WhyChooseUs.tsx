@@ -20,16 +20,40 @@ const StatItem = ({ icon: Icon, value, label, suffix, index }: { icon: typeof Us
   return (
     <div
       ref={ref}
-      className={`rounded-2xl border border-white/15 bg-white/[0.04] backdrop-blur-sm p-6 md:p-7 text-center transition-all duration-700 hover:-translate-y-1 hover:bg-white/[0.08] ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
+      className={`group relative rounded-3xl overflow-visible p-8 md:p-10 text-center transition-all duration-700 mt-10 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
       style={{ transitionDelay: `${index * 150}ms` }}
     >
-      <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full border border-primary/35 bg-primary/10">
-        <Icon className="h-6 w-6 text-primary" />
+      {/* Subtle gradient background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-white/[0.06] to-white/[0.01] group-hover:from-white/[0.1] group-hover:to-white/[0.03] transition-all duration-500 rounded-3xl" />
+      
+      {/* Enhanced border with glow */}
+      <div className="absolute inset-0 rounded-3xl border-2 border-primary/25 group-hover:border-primary/50 shadow-[inset_0_1px_0_rgba(255,255,255,0.1)] group-hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.2),0_12px_40px_rgba(204,168,98,0.2)] transition-all duration-500" />
+
+      {/* Icon container - positioned on border */}
+      <div className="absolute -top-8 left-1/2 -translate-x-1/2 flex h-16 w-16 items-center justify-center rounded-xl border-2 border-primary/60 bg-primary/60 group-hover:bg-primary/70 shadow-lg group-hover:shadow-[0_12px_32px_rgba(204,168,98,0.3)] transition-all duration-500 transform group-hover:scale-110 group-hover:-translate-y-1 z-20">
+        <Icon className="h-7 w-7 text-white transition-transform duration-500 group-hover:scale-120" />
       </div>
-      <div className="font-display text-4xl md:text-5xl text-slate-100 mb-2">
-        {count}{suffix}
+
+      {/* Accent dot */}
+      <div className="absolute top-8 right-6 w-3 h-3 rounded-full bg-gradient-to-br from-primary/60 to-primary/30 shadow-lg group-hover:shadow-[0_0_16px_rgba(204,168,98,0.5)] transition-all duration-500 group-hover:scale-125" />
+
+      <div className="relative z-10 pt-4">
+        {/* Stats value - larger and more prominent */}
+        <div className="font-body text-5xl md:text-6xl font-normal text-slate-50 mb-4 group-hover:text-white transition-colors duration-500 tracking-tight">
+          {count}{suffix}
+        </div>
+
+        {/* Label with enhanced styling */}
+        <div className="font-body text-xs md:text-sm tracking-[0.2em] uppercase text-slate-300 group-hover:text-slate-100 transition-colors duration-500 font-semibold letter-spacing">
+          {label}
+        </div>
+
+        {/* Accent bar below label */}
+        <div className="w-0 group-hover:w-16 h-1 bg-primary mx-auto mt-5 transition-all duration-500 rounded-full" />
       </div>
-      <div className="font-body text-sm tracking-[0.16em] uppercase text-slate-300">{label}</div>
+
+      {/* Hover background glow effect */}
+      <div className="absolute inset-0 rounded-3xl bg-gradient-to-t from-primary/0 to-primary/0 group-hover:from-primary/3 group-hover:to-transparent transition-all duration-500 pointer-events-none" />
     </div>
   );
 };

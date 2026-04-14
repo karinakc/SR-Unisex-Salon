@@ -71,9 +71,9 @@ const HeroSection = () => {
           height={1080}
           onError={() => setHeroSrc(heroImage)}
         />
-        <div className="absolute inset-0 bg-black/50" />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/75 via-black/58 to-black/72" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_18%,rgba(0,0,0,0.45)_100%)]" />
+        <div className="absolute inset-0 bg-black/35" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/40 to-black/50" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_18%,rgba(0,0,0,0.28)_100%)]" />
       </div>
 
       {/* Particles */}
@@ -120,13 +120,13 @@ const HeroSection = () => {
         >
           <button
             onClick={() => document.getElementById('book-now')?.scrollIntoView({ behavior: 'smooth' })}
-            className="w-full sm:w-auto px-8 sm:px-10 py-3.5 sm:py-4 bg-primary text-primary-foreground font-body text-sm tracking-widest uppercase hover:bg-gold-light transition-colors duration-300 cursor-pointer"
+            className="w-full sm:w-auto px-8 sm:px-10 py-3.5 sm:py-4 bg-primary text-primary-foreground font-body text-sm tracking-widest uppercase hover:bg-primary/90 transition-all duration-300 cursor-pointer shadow-[0_8px_24px_rgba(204,168,98,0.6)] hover:shadow-[0_12px_32px_rgba(204,168,98,0.8)]"
           >
             Book Now
           </button>
           <button
             onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })}
-            className="w-full sm:w-auto px-8 sm:px-10 py-3.5 sm:py-4 border border-primary text-primary font-body text-sm tracking-widest uppercase hover:bg-primary hover:text-primary-foreground transition-all duration-300 cursor-pointer"
+            className="w-full sm:w-auto px-8 sm:px-10 py-3.5 sm:py-4 border-2 border-primary text-primary font-body text-sm tracking-widest uppercase bg-white/10 hover:bg-primary hover:text-primary-foreground transition-all duration-300 cursor-pointer shadow-[0_4px_16px_rgba(204,168,98,0.4)] hover:shadow-[0_8px_24px_rgba(204,168,98,0.6)]"
           >
             Explore Services
           </button>

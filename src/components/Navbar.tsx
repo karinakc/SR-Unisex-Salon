@@ -55,7 +55,7 @@ const Navbar = () => {
             ))}
             <button
               onClick={() => scrollTo('Book Now')}
-              className={`ml-3 xl:ml-4 px-4 xl:px-6 py-2.5 font-body text-xs xl:text-sm tracking-[0.16em] uppercase transition-all duration-300 cursor-pointer ${
+              className={`ml-3 xl:ml-4 px-4 xl:px-6 py-2.5 font-body text-xs xl:text-sm tracking-[0.16em] uppercase transition-all duration-300 cursor-pointer rounded-md ${
                 scrolled
                   ? 'border border-primary text-primary hover:bg-primary hover:text-primary-foreground'
                   : 'border border-gold-light/90 text-ivory bg-black/20 hover:bg-gold-light hover:text-[#3d2a14]'
@@ -68,10 +68,10 @@ const Navbar = () => {
                 window.location.href = 'tel:+9779862937648';
               }}
               aria-label="Call SR Unisex Beauty Salon"
-              className="flex items-center gap-2 px-4 py-2.5 font-body text-xs xl:text-sm tracking-[0.16em] uppercase transition-all duration-300 cursor-pointer bg-primary text-primary-foreground hover:bg-gold-light hover:text-[#3d2a14]"
+              className="flex items-center gap-2 px-4 py-2.5 font-body text-xs xl:text-sm tracking-[0.16em] uppercase transition-all duration-300 cursor-pointer text-primary hover:text-gold-light rounded-md"
             >
               <Phone className="h-4 w-4" />
-              Call Now
+              9862937648
             </button>
           </div>
 
@@ -113,7 +113,7 @@ const Navbar = () => {
             <div className="w-full max-w-[280px] px-4 pt-2 flex flex-col gap-2.5">
               <button
                 onClick={() => scrollTo('Book Now')}
-                className="w-full px-5 py-2.5 font-body text-xs tracking-[0.16em] uppercase border border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300 cursor-pointer"
+                className="w-full px-5 py-2.5 font-body text-xs tracking-[0.16em] uppercase border border-primary text-white hover:bg-primary hover:text-primary-foreground transition-all duration-300 cursor-pointer rounded-md"
               >
                 Book Appointment
               </button>
@@ -123,10 +123,10 @@ const Navbar = () => {
                   window.location.href = 'tel:+9779862937648';
                 }}
                 aria-label="Call SR Unisex Beauty Salon"
-                className="w-full flex items-center justify-center gap-2 px-5 py-2.5 font-body text-xs tracking-[0.16em] uppercase bg-primary text-primary-foreground hover:bg-gold-light hover:text-[#3d2a14] transition-all duration-300 cursor-pointer"
+                className="w-full flex items-center justify-center gap-2 px-5 py-2.5 font-body text-xs tracking-[0.16em] uppercase text-primary hover:text-gold-light transition-all duration-300 cursor-pointer rounded-md"
               >
                 <Phone className="h-4 w-4" />
-                Call Now
+                9862937648
               </button>
             </div>
           </div>
