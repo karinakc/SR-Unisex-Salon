@@ -1,7 +1,7 @@
 import { Facebook, Instagram, MessageCircle } from 'lucide-react';
 
 const Footer = () => {
-  const quickLinks = ['Home', 'Services', 'About', 'Gallery', 'Testimonials', 'Book Now'];
+  const quickLinks = ['Home', 'Services', 'About', 'Gallery', 'Testimonials'];
   const services = ['Hair Styling', 'Bridal Makeup', 'Skincare', 'Nail Art', 'Hair Spa', "Men's Grooming"];
   const socials = [
     {

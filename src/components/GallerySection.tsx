@@ -42,20 +42,23 @@ const GallerySection = () => {
         </div>
 
         {/* Filters */}
-        <div className="flex justify-center gap-4 mb-12 flex-wrap">
+        <div className="mb-12 flex justify-center">
+          <div className="inline-flex flex-wrap items-center justify-center gap-2 rounded-full border border-primary/20 bg-white/60 p-2 shadow-[0_10px_28px_rgba(60,38,15,0.08)] backdrop-blur-sm">
           {filters.map((f) => (
             <button
               key={f}
               onClick={() => setFilter(f)}
-              className={`font-body text-sm tracking-widest uppercase px-5 py-2 transition-all duration-300 cursor-pointer ${
+              aria-pressed={filter === f}
+              className={`group relative min-w-[96px] rounded-full px-5 py-2.5 font-body text-sm tracking-[0.14em] uppercase transition-all duration-300 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 focus-visible:ring-offset-[#f6efdf] ${
                 filter === f
-                  ? 'bg-primary text-primary-foreground'
-                  : 'text-muted-foreground hover:text-primary border border-primary/25 bg-white/60'
+                  ? 'bg-primary text-primary-foreground shadow-[0_8px_18px_rgba(153,117,46,0.35)]'
+                  : 'border border-transparent bg-transparent text-foreground/70 hover:border-primary/25 hover:bg-white/80 hover:text-foreground'
               }`}
             >
-              {f}
+              <span className="relative z-10">{f}</span>
             </button>
           ))}
+          </div>
         </div>
 
         {/* Mosaic Grid */}

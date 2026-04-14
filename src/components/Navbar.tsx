@@ -99,7 +99,7 @@ const Navbar = () => {
             onClick={() => setMobileOpen(false)}
             className="fixed left-0 right-0 top-16 bottom-0 z-40 bg-black/20 backdrop-blur-[1px] lg:hidden"
           />
-          <div className="fixed left-0 right-0 top-16 z-40 h-[50svh] bg-background/96 backdrop-blur-xl flex flex-col items-center justify-start gap-7 pt-10 animate-fade-in-up rounded-b-3xl border-b border-border lg:hidden">
+          <div className="fixed left-0 right-0 top-16 z-40 min-h-[50svh] bg-background/96 backdrop-blur-xl flex flex-col items-center justify-start gap-6 pt-10 pb-8 animate-fade-in-up rounded-b-3xl border-b border-border lg:hidden">
             {navLinks.map((link) => (
               <button
                 key={link}
@@ -109,6 +109,26 @@ const Navbar = () => {
                 {link}
               </button>
             ))}
+
+            <div className="w-full max-w-[280px] px-4 pt-2 flex flex-col gap-2.5">
+              <button
+                onClick={() => scrollTo('Book Now')}
+                className="w-full px-5 py-2.5 font-body text-xs tracking-[0.16em] uppercase border border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300 cursor-pointer"
+              >
+                Book Appointment
+              </button>
+              <button
+                onClick={() => {
+                  setMobileOpen(false);
+                  window.location.href = 'tel:+9779862937648';
+                }}
+                aria-label="Call SR Unisex Beauty Salon"
+                className="w-full flex items-center justify-center gap-2 px-5 py-2.5 font-body text-xs tracking-[0.16em] uppercase bg-primary text-primary-foreground hover:bg-gold-light hover:text-[#3d2a14] transition-all duration-300 cursor-pointer"
+              >
+                <Phone className="h-4 w-4" />
+                Call Now
+              </button>
+            </div>
           </div>
         </>
       )}
