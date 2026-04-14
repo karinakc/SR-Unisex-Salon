@@ -52,20 +52,28 @@ const TestimonialsSection = () => {
           {[...testimonials, ...testimonials].map((t, i) => (
             <div
               key={i}
-              className="flex-shrink-0 w-[350px] md:w-[400px] rounded-2xl border border-white/14 bg-slate-900/45 backdrop-blur-md p-8 shadow-[0_16px_40px_rgba(12,14,18,0.4)]"
+              className="group flex-shrink-0 w-[350px] md:w-[400px] rounded-2xl border border-white/14 bg-slate-900/45 backdrop-blur-md p-8 shadow-[0_16px_40px_rgba(12,14,18,0.4)] transition-all duration-300 hover:bg-slate-900/60 cursor-pointer"
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLElement).style.animation = 'borderGlow 2s ease-in-out infinite';
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLElement).style.animation = 'none';
+                (e.currentTarget as HTMLElement).style.boxShadow = '0 16px 40px rgba(12, 14, 18, 0.4)';
+                (e.currentTarget as HTMLElement).style.borderColor = 'rgb(255 255 255 / 0.14)';
+              }}
             >
-              <div className="font-display text-5xl text-primary/30 mb-4">"</div>
-              <p className="font-body text-slate-300 leading-relaxed mb-6">{t.text}</p>
+              <div className="font-display text-5xl text-primary/30 mb-4 group-hover:text-primary/50 transition-colors duration-500">"</div>
+              <p className="font-body text-slate-300 leading-relaxed mb-6 group-hover:text-slate-100 transition-colors duration-500">{t.text}</p>
               <div className="flex gap-1 mb-3">
                 {Array.from({ length: t.rating }).map((_, j) => (
-                  <span key={j} className="text-primary text-sm">★</span>
+                  <span key={j} className="text-primary text-sm group-hover:scale-110 transition-transform duration-300" style={{ transitionDelay: `${j * 30}ms` }}>★</span>
                 ))}
               </div>
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-white/5 border border-white/15 flex items-center justify-center">
+                <div className="w-10 h-10 rounded-full bg-white/5 border border-white/15 flex items-center justify-center group-hover:bg-primary/20 group-hover:border-primary/50 transition-all duration-500">
                   <span className="font-display text-sm text-primary">{t.name[0]}</span>
                 </div>
-                <span className="font-body text-sm text-slate-100">{t.name}</span>
+                <span className="font-body text-sm text-slate-100 group-hover:text-white transition-colors duration-500">{t.name}</span>
               </div>
             </div>
           ))}

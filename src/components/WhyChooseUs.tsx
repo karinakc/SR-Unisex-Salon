@@ -39,7 +39,7 @@ const StatItem = ({ icon: Icon, value, label, suffix, index }: { icon: typeof Us
 
       <div className="relative z-10 pt-4">
         {/* Stats value - larger and more prominent */}
-        <div className="font-body text-5xl md:text-6xl font-normal text-slate-50 mb-4 group-hover:text-white transition-colors duration-500 tracking-tight">
+        <div className="font-body text-4xl md:text-5xl font-normal text-slate-50 mb-4 group-hover:text-white transition-colors duration-500 tracking-tight">
           {count}{suffix}
         </div>
 
@@ -62,7 +62,7 @@ const WhyChooseUs = () => {
   const { ref, isVisible } = useScrollAnimation();
 
   return (
-    <section className="relative overflow-hidden py-24 md:py-32 bg-[linear-gradient(160deg,#0b0f1c_0%,#111a2b_45%,#0f1724_100%)]">
+    <section className="relative overflow-hidden py-24 md:py-32 bg-[linear-gradient(170deg,#17181c_0%,#22252b_46%,#1a1d23_100%)]">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_10%_20%,rgba(99,102,241,0.22),transparent_35%),radial-gradient(circle_at_90%_15%,rgba(45,212,191,0.18),transparent_32%)]" />
 
       {/* Grain texture */}

@@ -166,14 +166,14 @@ const BookingSection = () => {
 
             <div className="mt-8 rounded-2xl border border-white/20 overflow-hidden">
               <iframe
-                src="https://www.google.com/maps?q=27.6654702,85.4246603&z=17&output=embed"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3532.8215819265703!2d85.4246603!3d27.6654702!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb1b50bfb5e69d%3A0xf5e2747dc83352fc!2sSR%20Unisex%20Beauty%20Salon%20and%20Make-up%20Studio!5e0!3m2!1sen!2snp!4v1712973600000"
                 width="100%"
                 height="240"
                 style={{ border: 0 }}
                 allowFullScreen
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                title="Location"
+                title="SR Unisex Beauty Salon and Make-up Studio Location"
               />
             </div>
           </div>
