@@ -59,7 +59,7 @@ const GallerySection = () => {
         </div>
 
         {/* Mosaic Grid */}
-        <div className="relative z-10 grid grid-cols-1 sm:grid-cols-6 lg:grid-cols-12 auto-rows-[110px] sm:auto-rows-[110px] md:auto-rows-[130px] gap-3 md:gap-4">
+        <div className="relative z-10 grid grid-cols-1 sm:grid-cols-6 lg:grid-cols-12 sm:auto-rows-[110px] md:auto-rows-[130px] gap-4 md:gap-4">
           {filtered.map((img, i) => (
             <GalleryImage
               key={`${img.alt}-${i}`}
@@ -106,7 +106,7 @@ const GalleryImage = ({
     <div
       ref={ref}
       onClick={onClick}
-      className={`group relative overflow-hidden cursor-pointer min-h-[220px] sm:min-h-0 sm:h-auto ${shapeClass} ${
+      className={`group relative overflow-hidden cursor-pointer aspect-[4/5] sm:aspect-auto rounded-3xl sm:rounded-none ${shapeClass} ${
         isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
       } transition-all duration-700`}
       style={{ transitionDelay: `${index * 100}ms` }}
@@ -120,7 +120,7 @@ const GalleryImage = ({
         />
         <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(25,20,12,0.12),rgba(20,15,10,0.42))] group-hover:bg-[linear-gradient(180deg,rgba(20,15,10,0.08),rgba(20,15,10,0.32))] transition-all duration-500" />
         <div className="absolute inset-0 flex items-center justify-center px-4 text-center">
-          <span className="font-display text-xl md:text-2xl tracking-[0.22em] text-primary/90">{title}</span>
+          <span className="font-display text-lg sm:text-xl md:text-2xl tracking-[0.16em] sm:tracking-[0.22em] text-ivory/95 drop-shadow-[0_3px_8px_rgba(0,0,0,0.45)]">{title}</span>
         </div>
         <div className="absolute inset-0 flex items-end justify-center pb-5 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
           <span className="font-body text-xs tracking-[0.2em] uppercase text-white/90">Open</span>

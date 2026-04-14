@@ -92,17 +92,25 @@ const Navbar = () => {
 
       {/* Mobile Drawer */}
       {mobileOpen && (
-        <div className="fixed left-0 right-0 top-16 bottom-0 z-40 bg-background/95 backdrop-blur-xl flex flex-col items-center justify-start gap-7 pt-10 animate-fade-in-up lg:hidden">
-          {navLinks.map((link) => (
-            <button
-              key={link}
-              onClick={() => scrollTo(link)}
-              className="font-display text-2xl sm:text-3xl text-foreground hover:text-primary transition-colors cursor-pointer"
-            >
-              {link}
-            </button>
-          ))}
-        </div>
+        <>
+          <button
+            type="button"
+            aria-label="Close menu overlay"
+            onClick={() => setMobileOpen(false)}
+            className="fixed left-0 right-0 top-16 bottom-0 z-40 bg-black/20 backdrop-blur-[1px] lg:hidden"
+          />
+          <div className="fixed left-0 right-0 top-16 z-40 h-[50svh] bg-background/96 backdrop-blur-xl flex flex-col items-center justify-start gap-7 pt-10 animate-fade-in-up rounded-b-3xl border-b border-border lg:hidden">
+            {navLinks.map((link) => (
+              <button
+                key={link}
+                onClick={() => scrollTo(link)}
+                className="font-display text-2xl sm:text-3xl text-ivory/95 hover:text-gold-light transition-colors cursor-pointer"
+              >
+                {link}
+              </button>
+            ))}
+          </div>
+        </>
       )}
     </>
   );
