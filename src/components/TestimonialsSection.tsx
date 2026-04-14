@@ -37,10 +37,10 @@ const TestimonialsSection = () => {
         </div>
       </div>
 
-      <div className="relative z-10 px-4 md:px-12">
+      <div className="relative z-10 px-4 md:px-12 mt-16">
         <div
           ref={scrollRef}
-          className="flex gap-6 overflow-x-auto scrollbar-hide"
+          className="flex gap-6 overflow-x-auto scrollbar-hide pb-6"
           style={{ scrollBehavior: 'smooth' }}
           onMouseEnter={() => {
             isPausedRef.current = true;
