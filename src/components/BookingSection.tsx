@@ -41,6 +41,15 @@ const BookingSection = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    const today = new Date().toISOString().split('T')[0];
+    if (!formData.date) {
+      alert('Please select a date for your appointment.');
+      return;
+    }
+    if (formData.date < today) {
+      alert('Cannot book appointments for past dates. Please select a future date.');
+      return;
+    }
     alert('Thank you! We will contact you shortly to confirm your appointment.');
     setFormData({ name: '', phone: '', email: '', service: '', date: '', message: '' });
   };
@@ -100,8 +109,10 @@ const BookingSection = () => {
               <input
                 type="date"
                 value={formData.date} onChange={(e) => setFormData({ ...formData, date: e.target.value })}
+                min={new Date().toISOString().split('T')[0]}
                 className={`w-full rounded-xl border border-primary/20 bg-white/80 px-4 py-3.5 font-body text-foreground cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary/35 transition-all duration-700 ${formVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
                 style={{ transitionDelay: '330ms' }}
+                required
               />
               <textarea
                 placeholder="Any special requests..." rows={4}

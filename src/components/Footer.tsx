@@ -73,7 +73,7 @@ const Footer = () => {
         {/* Bottom */}
         <div className="border-t border-primary/25 pt-6 flex flex-col sm:flex-row justify-between items-center gap-3">
           <p className="font-body text-xs text-slate-400">
-            © 2026 SR Unisex Beauty Salon. All rights reserved.
+            © {new Date().getFullYear()} SR Unisex Beauty Salon. All rights reserved.
           </p>
           <div className="flex gap-6">
             {socials.map((social) => {
