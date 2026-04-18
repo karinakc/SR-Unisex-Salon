@@ -18,15 +18,15 @@ const CountBadge = ({ label, value, delay = 0 }: { label: string; value: number;
   return (
     <div
       ref={ref}
-      className={`rounded-xl border border-primary/20 bg-card/80 backdrop-blur-sm px-4 py-5 text-center transition-all duration-700 ${
+      className={`rounded-xl border border-[#d4af37]/25 bg-[#1a1410]/50 backdrop-blur-sm px-4 py-5 text-center transition-all duration-700 ${
         isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
       }`}
       style={{ transitionDelay: `${delay}ms` }}
     >
-      <div className="font-display text-3xl md:text-4xl text-primary mb-1">
+      <div className="font-display text-3xl md:text-4xl text-[#d4af37] mb-1">
         {value > 0 ? `${count}+` : '✦'}
       </div>
-      <div className="font-body text-sm tracking-widest uppercase text-muted-foreground">{label}</div>
+      <div className="font-body text-sm tracking-widest uppercase text-[#f5e6c0]" style={{ opacity: '0.7' }}>{label}</div>
     </div>
   );
 };
@@ -35,9 +35,9 @@ const AboutSection = () => {
   const { ref, isVisible } = useScrollAnimation();
 
   return (
-    <section id="about" className="relative py-24 md:py-32 overflow-hidden">
-      <div className="pointer-events-none absolute -top-24 -right-24 h-72 w-72 rounded-full bg-gold-light/20 blur-3xl" />
-      <div className="pointer-events-none absolute -bottom-32 -left-24 h-80 w-80 rounded-full bg-primary/10 blur-3xl" />
+    <section id="about" className="relative py-24 md:py-32 overflow-hidden bg-[#0a0806]">
+      <div className="pointer-events-none absolute -top-24 -right-24 h-72 w-72 rounded-full bg-[#d4af37]/10 blur-3xl" />
+      <div className="pointer-events-none absolute -bottom-32 -left-24 h-80 w-80 rounded-full bg-[#d4af37]/5 blur-3xl" />
 
       <div className="container mx-auto px-4 md:px-8">
         <div
@@ -53,22 +53,22 @@ const AboutSection = () => {
             }`}
             style={{ transitionDelay: '120ms' }}
           >
-            <div className="absolute inset-0 rounded-3xl bg-gradient-to-b from-gold-light/20 via-transparent to-primary/20 blur-2xl" />
-            <div className="relative overflow-hidden rounded-3xl border border-primary/30 bg-card p-3 shadow-[0_24px_70px_rgba(120,88,30,0.16)]">
+            <div className="absolute inset-0 rounded-3xl bg-gradient-to-b from-[#d4af37]/15 via-transparent to-[#d4af37]/10 blur-2xl" />
+            <div className="relative overflow-hidden rounded-3xl border border-[#d4af37]/30 bg-[#1a1410] p-3 shadow-[0_24px_70px_rgba(212,175,55,0.1)]">
               <img
-                src="/party%20makeup.jpg"
+                src="/owner.png"
                 alt="Sangeeta Rai"
                 className="w-full h-[430px] sm:h-[500px] object-cover rounded-2xl"
                 loading="lazy"
                 width={800}
                 height={1000}
               />
-              <div className="absolute inset-0 rounded-2xl border border-white/20 m-6 pointer-events-none" />
+              <div className="absolute inset-0 rounded-2xl border border-[#d4af37]/15 m-6 pointer-events-none" />
             </div>
 
-            <div className="absolute -bottom-6 -right-4 sm:right-0 rounded-xl border border-primary/25 bg-background/95 px-5 py-4 shadow-lg backdrop-blur-sm">
-              <p className="font-body text-xs tracking-[0.2em] uppercase text-muted-foreground mb-1">Signature Approach</p>
-              <p className="font-display text-2xl text-primary">Luxury, Detail, Care</p>
+            <div className="absolute -bottom-6 -right-4 sm:right-0 rounded-xl border border-[#d4af37]/25 bg-[#0a0806]/95 px-5 py-4 shadow-lg backdrop-blur-sm">
+              <p className="font-body text-xs tracking-[0.2em] uppercase text-[#d4af37] mb-1">Signature Approach</p>
+              <p className="font-display text-2xl text-[#f5e6c0]">Luxury, Detail, Care</p>
             </div>
           </div>
 
@@ -79,20 +79,20 @@ const AboutSection = () => {
             }`}
             style={{ transitionDelay: '220ms' }}
           >
-            <p className="font-body text-xs tracking-[0.28em] uppercase text-primary mb-3">About The Studio</p>
-            <h2 className="font-display text-4xl md:text-5xl lg:text-6xl text-foreground leading-[0.95] mb-3">Our Story</h2>
-            <p className="font-display text-lg italic text-muted-foreground mb-6">Crafting timeless beauty experiences in every appointment.</p>
+            <p className="font-body text-xs tracking-[0.28em] uppercase text-[#d4af37] mb-3">About The Studio</p>
+            <h2 className="font-display text-4xl md:text-5xl lg:text-6xl text-[#f5e6c0] leading-[0.95] mb-3">Our Story</h2>
+            <p className="font-display text-lg italic text-[rgba(255,230,192,0.7)] mb-6">Crafting timeless beauty experiences in every appointment.</p>
             <div
-              className={`h-px bg-gradient-to-r from-primary via-gold-light to-transparent mb-8 transition-all duration-1500 ease-out ${
+              className={`h-px bg-gradient-to-r from-[#d4af37] via-[#d4af37]/50 to-transparent mb-8 transition-all duration-1500 ease-out ${
                 isVisible ? 'w-32' : 'w-0'
               }`}
               style={{ transitionDelay: '500ms' }}
             />
 
-            <p className="font-body text-muted-foreground leading-relaxed mb-6">
+            <p className="font-body text-[#f5e6c0] leading-relaxed mb-6" style={{ opacity: '0.8' }}>
               Founded by Sangeeta Rai, SR Unisex Beauty Salon & Makeup Studio is a sanctuary of elegance and transformation. With over a decade of expertise in the art of beauty, Sangeeta has cultivated a space where every client receives a personalized, luxurious experience.
             </p>
-            <p className="font-body text-muted-foreground leading-relaxed mb-10">
+            <p className="font-body text-[#f5e6c0] leading-relaxed mb-10" style={{ opacity: '0.8' }}>
               We believe beauty is an art form. Using only premium products and cutting-edge techniques, our certified artists craft looks that enhance your natural radiance from stunning bridal transformations to everyday elegance.
             </p>
 

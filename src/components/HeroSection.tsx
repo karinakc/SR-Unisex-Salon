@@ -1,20 +1,105 @@
+'use client';
 import { useEffect, useState, useRef } from 'react';
-import heroImage from '@/assets/hero-salon.jpg';
 
-const remoteHeroImage =
-  'https://imgs.search.brave.com/26nBj-Gmjqv28-hxXpWJqTBQwa5ceMPoXAm_sE782bA/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zdGF0/aWMudmVjdGVlenku/Y29tL3N5c3RlbS9y/ZXNvdXJjZXMvdGh1/bWJuYWlscy8wMjcv/ODE5LzUxNi9zbWFs/bC9iZWF1dHktc2Fs/b24taW50ZXJpb3It/ZnJlZS1waG90by5q/cGc';
+interface Slide {
+  id: number;
+  tag: string;
+  headline: string;
+  headlineEmphasis: string;
+  subtitle: string;
+  image: string;
+}
+
+const slides: Slide[] = [
+  {
+    id: 1,
+    tag: 'Hair & Style',
+    headline: 'Redefine Your Beauty',
+    headlineEmphasis: 'Beauty',
+    subtitle: 'Unisex Beauty Salon & Makeup Studio by Sangeeta Rai',
+    image: '/hero-salon.jpg',
+  },
+  {
+    id: 2,
+    tag: 'Colour & Gloss',
+    headline: 'Colour that Speaks First',
+    headlineEmphasis: 'Speaks',
+    subtitle: 'Balayage · Highlights · Full Colour · Keratin',
+    image: '/hair%20color.jpg',
+  },
+  {
+    id: 3,
+    tag: 'Bridal Studio',
+    headline: 'Your Most Radiant Day',
+    headlineEmphasis: 'Radiant',
+    subtitle: 'Bridal Makeup · Draping · Updo Styling · Trial Packages',
+    image: '/bridal.jpg',
+  },
+  {
+    id: 4,
+    tag: 'Makeup Studio',
+    headline: 'Art on Every Face',
+    headlineEmphasis: 'Art',
+    subtitle: 'Party Makeup · HD Airbrush · Photoshoot · Editorial',
+    image: '/party%20makeup.jpg',
+  },
+];
+
+// Inject animation styles
+const injectStyles = () => {
+  if (typeof document === 'undefined') return;
+  const styleId = 'hero-section-styles';
+  if (document.getElementById(styleId)) return;
+
+  const style = document.createElement('style');
+  style.id = styleId;
+  style.textContent = `
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.2; transform: scale(1); }
+      50% { opacity: 0.7; transform: scale(1.2); }
+    }
+    
+    @keyframes slideUpOut {
+      from { opacity: 1; transform: translateY(0); }
+      to { opacity: 0; transform: translateY(-12px); }
+    }
+    
+    @keyframes slideUpIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .twinkle-dot {
+      animation: twinkle 3s ease-in-out infinite;
+    }
+    
+    .headline-exit {
+      animation: slideUpOut 0.6s ease forwards;
+    }
+    
+    .headline-enter {
+      animation: slideUpIn 0.6s ease forwards;
+    }
+  `;
+  document.head.appendChild(style);
+};
 
 const HeroSection = () => {
-  const [loaded, setLoaded] = useState(false);
-  const [heroSrc, setHeroSrc] = useState(remoteHeroImage);
-  const words = ['Redefine', 'Your', 'Beauty'];
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [progress, setProgress] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [imageSrc, setImageSrc] = useState(slides[0].image);
+  const progressIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  const autoplayIntervalRef = useRef<NodeJS.Timeout | null>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
+  const SLIDE_DURATION = 4800;
+
   useEffect(() => {
-    setTimeout(() => setLoaded(true), 200);
+    injectStyles();
   }, []);
 
-  // Gold particles
+  // Gold particles animation
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -29,7 +114,7 @@ const HeroSection = () => {
     window.addEventListener('resize', resize);
 
     const particles: { x: number; y: number; vx: number; vy: number; size: number; opacity: number }[] = [];
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 20; i++) {
       particles.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
@@ -59,80 +144,273 @@ const HeroSection = () => {
     return () => { cancelAnimationFrame(raf); window.removeEventListener('resize', resize); };
   }, []);
 
+  // Auto-advance slides
+  useEffect(() => {
+    autoplayIntervalRef.current = setInterval(() => {
+      setIsTransitioning(true);
+      setTimeout(() => {
+        const nextSlide = (currentSlide + 1) % slides.length;
+        setCurrentSlide(nextSlide);
+        setImageSrc(slides[nextSlide].image);
+        setProgress(0);
+        setIsTransitioning(false);
+      }, 600);
+    }, SLIDE_DURATION);
+
+    return () => {
+      if (autoplayIntervalRef.current) clearInterval(autoplayIntervalRef.current);
+    };
+  }, [currentSlide]);
+
+  // Progress bar animation
+  useEffect(() => {
+    setProgress(0);
+    progressIntervalRef.current = setInterval(() => {
+      setProgress((prev) => Math.min(prev + 100 / (SLIDE_DURATION / 16), 100));
+    }, 16);
+
+    return () => {
+      if (progressIntervalRef.current) clearInterval(progressIntervalRef.current);
+    };
+  }, [currentSlide]);
+
+  const goToSlide = (index: number) => {
+    if (autoplayIntervalRef.current) clearInterval(autoplayIntervalRef.current);
+    setIsTransitioning(true);
+    setTimeout(() => {
+      setCurrentSlide(index);
+      setImageSrc(slides[index].image);
+      setProgress(0);
+      setIsTransitioning(false);
+      // Restart autoplay after manual slide navigation
+      autoplayIntervalRef.current = setInterval(() => {
+        setIsTransitioning(true);
+        setTimeout(() => {
+          const nextSlide = (index + 1) % slides.length;
+          setCurrentSlide(nextSlide);
+          setImageSrc(slides[nextSlide].image);
+          setProgress(0);
+          setIsTransitioning(false);
+        }, 600);
+      }, SLIDE_DURATION);
+    }, 600);
+  };
+
+  const slide = slides[currentSlide];
+  const headlineParts = slide.headline.split(slide.headlineEmphasis);
+
+  // Ambient sparkle positions (right half of hero)
+  const sparkles = [
+    { top: '15%', right: '12%', delay: '0s' },
+    { top: '35%', right: '8%', delay: '0.5s' },
+    { top: '60%', right: '15%', delay: '1s' },
+    { top: '75%', right: '10%', delay: '1.5s' },
+    { top: '20%', right: '22%', delay: '0.8s' },
+    { top: '45%', right: '18%', delay: '1.2s' },
+    { top: '70%', right: '25%', delay: '0.3s' },
+    { top: '85%', right: '5%', delay: '1.8s' },
+    { top: '28%', right: '28%', delay: '1.1s' },
+    { top: '55%', right: '30%', delay: '0.6s' },
+  ];
+
   return (
-    <section id="home" className="relative min-h-[100svh] flex items-center justify-center overflow-hidden pt-16 md:pt-20">
-      {/* Background */}
+    <section id="home" className="relative w-full h-screen overflow-hidden bg-[#0a0806]">
+      {/* Particle Canvas */}
+      <canvas
+        ref={canvasRef}
+        className="absolute inset-0 pointer-events-none"
+        style={{ zIndex: 5 }}
+      />
+
+      {/* Background Image */}
       <div className="absolute inset-0">
         <img
-          src={heroSrc}
-          alt="Luxury salon interior"
-          className="w-full h-full object-cover"
-          width={1920}
-          height={1080}
-          onError={() => setHeroSrc(heroImage)}
+          src={imageSrc}
+          alt={slide.tag}
+          className={`w-full h-full object-cover transition-opacity duration-1000 ease-out ${
+            isTransitioning ? 'opacity-50' : 'opacity-100'
+          }`}
+          style={{ filter: 'brightness(0.42)' }}
         />
-        <div className="absolute inset-0 bg-black/35" />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/40 to-black/50" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_18%,rgba(0,0,0,0.28)_100%)]" />
+
+        {/* Solid Dark Veil */}
+        <div className="absolute inset-0 bg-[rgba(5,3,2,0.3)]" />
+
+        {/* Left-to-Right Gradient Fade */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background: 'linear-gradient(to right, rgba(5,3,2,0.4) 0%, rgba(5,3,2,0.2) 45%, rgba(5,3,2,0.05) 100%)',
+          }}
+        />
       </div>
 
-      {/* Particles */}
-      <canvas ref={canvasRef} className="absolute inset-0 pointer-events-none" />
+      {/* Ambient Sparkle Dots */}
+      {sparkles.map((sparkle, i) => (
+        <div
+          key={i}
+          className="twinkle-dot absolute w-1 h-1 rounded-full"
+          style={{
+            backgroundColor: '#d4af37',
+            top: sparkle.top,
+            right: sparkle.right,
+            animationDelay: sparkle.delay,
+            width: `${Math.random() * 3 + 2}px`,
+            height: `${Math.random() * 3 + 2}px`,
+          }}
+        />
+      ))}
 
-      {/* Content */}
-      <div className="relative z-10 text-center px-4 w-full max-w-4xl">
-        <div className="mx-auto w-full max-w-[92vw] md:max-w-4xl rounded-2xl border border-white/15 bg-black/28 backdrop-blur-[2px] px-4 py-7 sm:px-5 sm:py-8 md:px-8 md:py-10 shadow-[0_18px_50px_rgba(0,0,0,0.35)]">
-        <div className="overflow-hidden mb-6">
-          <div className="flex flex-col md:flex-row justify-center items-center gap-1 md:gap-6 flex-wrap">
-            {words.map((word, i) => (
-              <span
-                key={word}
-                className={`block font-display text-[2.85rem] leading-[1.05] sm:text-6xl md:text-8xl font-semibold gold-text transition-all duration-700 ${
-                  loaded ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'
-                }`}
+      {/* Main Content */}
+      <div className="relative z-10 h-full w-full flex flex-col justify-between px-8 sm:px-12 py-12 sm:py-16">
+        {/* Top Section */}
+        <div className="flex items-start">
+          <div className={`transition-all duration-500 ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}>
+            <div className="flex items-center gap-3 mb-2">
+              <div
+                className="h-px"
                 style={{
-                  transitionDelay: `${i * 200 + 400}ms`,
-                  textShadow: '0 8px 28px rgba(0, 0, 0, 0.6)',
-                  backgroundSize: '200% 100%',
-                  animation: `shimmer 4s ease-in-out ${i * 0.25}s infinite`,
+                  width: '26px',
+                  backgroundColor: '#d4af37',
+                }}
+              />
+              <span
+                className="font-sans text-[10px] font-medium uppercase"
+                style={{
+                  letterSpacing: '0.2em',
+                  color: 'rgba(255,255,255,0.55)',
                 }}
               >
-                {word}
+                {slide.tag}
               </span>
-            ))}
+            </div>
           </div>
         </div>
 
-        <p
-          className={`font-body text-base sm:text-lg md:text-xl text-ivory tracking-[0.14em] sm:tracking-[0.2em] uppercase mb-8 md:mb-10 transition-all duration-700 ${
-            loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-          }`}
-          style={{ transitionDelay: '1200ms', textShadow: '0 4px 14px rgba(0, 0, 0, 0.45)' }}
-        >
-          Unisex Beauty Salon & Makeup Studio by Sangeeta Rai
-        </p>
+        {/* Middle Content */}
+        <div className="max-w-3xl">
+          {/* Headline */}
+          <div className="min-h-32 sm:min-h-40 overflow-hidden mb-6">
+            <h1
+              className={`font-display font-bold leading-snug transition-all duration-600 block ${
+                isTransitioning ? 'headline-exit' : 'headline-enter'
+              }`}
+              style={{
+                fontSize: 'clamp(40px, 7.5vw, 72px)',
+                color: '#f5e6c0',
+                maxWidth: '480px',
+                wordBreak: 'break-word',
+                whiteSpace: 'normal',
+                fontWeight: 700,
+              }}
+            >
+              {headlineParts[0]}
+              <em style={{ color: '#d4af37', fontStyle: 'italic' }}>{slide.headlineEmphasis}</em>
+              {headlineParts[1]}
+            </h1>
+          </div>
 
-        <div
-          className={`flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center transition-all duration-700 ${
-            loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-          }`}
-          style={{ transitionDelay: '1500ms' }}
-        >
-          <button
-            onClick={() => document.getElementById('book-now')?.scrollIntoView({ behavior: 'smooth' })}
-            className="w-full sm:w-auto px-8 sm:px-10 py-3.5 sm:py-4 bg-primary text-primary-foreground font-body text-sm tracking-widest uppercase hover:bg-primary/90 transition-all duration-300 cursor-pointer shadow-[0_8px_24px_rgba(204,168,98,0.6)] hover:shadow-[0_12px_32px_rgba(204,168,98,0.8)]"
+          {/* Subtitle */}
+          <div
+            className={`transition-opacity duration-500 mb-8 ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}
           >
-            Book Now
-          </button>
-          <button
-            onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })}
-            className="w-full sm:w-auto px-8 sm:px-10 py-3.5 sm:py-4 border-2 border-primary text-primary font-body text-sm tracking-widest uppercase bg-white/10 hover:bg-primary hover:text-primary-foreground transition-all duration-300 cursor-pointer shadow-[0_4px_16px_rgba(204,168,98,0.4)] hover:shadow-[0_8px_24px_rgba(204,168,98,0.6)]"
+            <p
+              className="font-sans text-xs sm:text-sm uppercase"
+              style={{
+                letterSpacing: '0.15em',
+                color: 'rgba(255,255,255,0.55)',
+              }}
+            >
+              {slide.subtitle}
+            </p>
+          </div>
+
+          {/* CTAs */}
+          <div
+            className={`flex flex-col sm:flex-row gap-4 transition-all duration-500 ${
+              isTransitioning ? 'opacity-0' : 'opacity-100'
+            }`}
           >
-            Explore Services
-          </button>
+            <button
+              onClick={() => document.getElementById('book-now')?.scrollIntoView({ behavior: 'smooth' })}
+              className="px-8 py-3 font-bold text-xs uppercase transition-all duration-300"
+              style={{
+                backgroundColor: '#d4af37',
+                color: '#0a0806',
+                fontSize: '13px',
+                fontWeight: 700,
+                letterSpacing: '0.1em',
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.9')}
+              onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}
+            >
+              Book Now
+            </button>
+            <button
+              onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })}
+              className="px-8 py-3 font-medium text-xs uppercase transition-all duration-300"
+              style={{
+                backgroundColor: 'transparent',
+                color: '#ffffff',
+                border: '1px solid rgba(212,175,55,0.3)',
+                fontSize: '13px',
+                letterSpacing: '0.1em',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = '#d4af37';
+                e.currentTarget.style.color = '#d4af37';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = 'rgba(212,175,55,0.3)';
+                e.currentTarget.style.color = '#ffffff';
+              }}
+            >
+              Explore Services
+            </button>
+          </div>
         </div>
+
+        {/* Bottom Bar */}
+        <div className="flex items-center justify-between">
+          {/* Slide Counter */}
+          <div
+            className={`text-xs font-medium transition-all duration-500 ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}
+            style={{
+              color: 'rgba(212,175,55,0.6)',
+              letterSpacing: '0.1em',
+            }}
+          >
+            {String(currentSlide + 1).padStart(2, '0')} — {String(slides.length).padStart(2, '0')}
+          </div>
+
+          {/* Dash-style Navigation Dots */}
+          <div className="flex items-center gap-3">
+            {slides.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => goToSlide(index)}
+                className={`h-1 transition-all duration-300 cursor-pointer ${
+                  index === currentSlide ? 'w-8' : 'w-6 hover:w-7'
+                }`}
+                style={{
+                  backgroundColor: index === currentSlide ? '#d4af37' : 'rgba(212,175,55,0.2)',
+                }}
+                aria-label={`Go to slide ${index + 1}`}
+              />
+            ))}
+          </div>
         </div>
       </div>
+
+      {/* Progress Bar */}
+      <div
+        className="absolute bottom-0 left-0 h-0.5"
+        style={{
+          width: `${progress}%`,
+          backgroundColor: '#d4af37',
+          transition: 'width 16ms linear',
+        }}
+      />
     </section>
   );
 };

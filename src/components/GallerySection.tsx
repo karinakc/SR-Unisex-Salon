@@ -10,9 +10,11 @@ const images = [
   { src: '/bridal%20look.jpg', category: 'bridal', alt: 'Bridal Look' },
   { src: '/party%20makeup.jpg', category: 'makeup', alt: 'Party Makeup' },
   { src: '/nail.jpg', category: 'nails', alt: 'Nail Extensions' },
+  { src: '/facial.png', category: 'skincare', alt: 'Skincare' },
+  { src: '/hero-salon.jpg', category: 'grooming', alt: 'Men\'s Grooming' },
 ];
 
-const filters = ['All', 'Hair', 'Makeup', 'Bridal', 'Nails'];
+const filters = ['All', 'Hair', 'Makeup', 'Bridal', 'Nails', 'Skincare', 'Grooming'];
 
 const shapeLayouts = [
   'sm:col-span-3 lg:col-span-3 sm:row-span-4 rounded-[2.5rem_0.75rem_2.5rem_0.75rem]',
@@ -20,9 +22,11 @@ const shapeLayouts = [
   'sm:col-span-3 lg:col-span-3 sm:row-span-2 rounded-[2rem_2rem_0.75rem_0.75rem]',
   'sm:col-span-3 lg:col-span-3 sm:row-span-3 rounded-[0.75rem_2rem_2rem_0.75rem]',
   'sm:col-span-3 lg:col-span-3 sm:row-span-3 rounded-[2.25rem_0.75rem_0.75rem_2.25rem]',
-  'sm:col-span-3 lg:col-span-3 sm:row-span-2 rounded-[0.75rem_0.75rem_2rem_2rem]',
-  'sm:col-span-6 lg:col-span-6 sm:row-span-2 rounded-[2.75rem_0.75rem_2.75rem_0.75rem]',
+  'sm:col-span-6 lg:col-span-3 sm:row-span-2 rounded-[0.75rem_0.75rem_2rem_2rem]',
+  'sm:col-span-6 lg:col-span-3 sm:row-span-3 rounded-[2.75rem_0.75rem_2.75rem_0.75rem]',
   'sm:col-span-6 lg:col-span-3 sm:row-span-2 rounded-[0.75rem_2.25rem_0.75rem_2.25rem]',
+  'sm:col-span-3 lg:col-span-3 sm:row-span-3 rounded-[2rem_0.75rem_2rem_0.75rem]',
+  'sm:col-span-3 lg:col-span-3 sm:row-span-3 rounded-[0.75rem_2.25rem_2.25rem_0.75rem]',
 ];
 
 const GallerySection = () => {
@@ -33,26 +37,26 @@ const GallerySection = () => {
   const filtered = filter === 'All' ? images : images.filter((img) => img.category === filter.toLowerCase());
 
   return (
-    <section id="gallery" className="relative py-24 md:py-32 overflow-hidden bg-[linear-gradient(180deg,#f8f3e7_0%,#f4ecdc_40%,#fbf8f1_100%)]">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_8%_20%,rgba(204,168,98,0.16),transparent_28%),radial-gradient(circle_at_86%_14%,rgba(132,88,40,0.09),transparent_30%)]" />
-      <div className="container mx-auto px-4 md:px-8">
-        <div ref={ref} className={`relative z-10 text-center mb-12 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          <h2 className="font-display text-4xl md:text-5xl text-foreground mb-4">Our Work Speaks</h2>
-          <div className={`h-px bg-primary mx-auto transition-all duration-1000 ${isVisible ? 'w-20' : 'w-0'}`} style={{ transitionDelay: '300ms' }} />
+    <section id="gallery" className="relative py-16 md:py-24 overflow-hidden bg-[#0a0806]">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_8%_20%,rgba(212,175,55,0.08),transparent_28%),radial-gradient(circle_at_86%_14%,rgba(212,175,55,0.05),transparent_30%)]" />
+      <div className="container mx-auto px-3 md:px-4">
+        <div ref={ref} className={`relative z-10 text-center mb-8 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <h2 className="font-display text-4xl md:text-5xl text-[#f5e6c0] mb-4">Our Work Speaks</h2>
+          <div className={`h-px bg-[#d4af37] mx-auto transition-all duration-1000 ${isVisible ? 'w-20' : 'w-0'}`} style={{ transitionDelay: '300ms' }} />
         </div>
 
         {/* Filters */}
-        <div className="mb-12 flex justify-center">
-          <div className="inline-flex flex-wrap items-center justify-center gap-2 rounded-full border border-primary/20 bg-white/60 p-2 shadow-[0_10px_28px_rgba(60,38,15,0.08)] backdrop-blur-sm">
+        <div className="mb-8 flex justify-center">
+          <div className="inline-flex flex-wrap items-center justify-center gap-1 rounded-full border border-[#d4af37]/30 bg-[#1a1410]/60 p-1 shadow-[0_10px_28px_rgba(0,0,0,0.3)] backdrop-blur-sm">
           {filters.map((f) => (
             <button
               key={f}
               onClick={() => setFilter(f)}
               aria-pressed={filter === f}
-              className={`group relative min-w-[96px] rounded-full px-5 py-2.5 font-body text-sm tracking-[0.14em] uppercase transition-all duration-300 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 focus-visible:ring-offset-[#f6efdf] ${
+              className={`group relative min-w-[80px] rounded-full px-4 py-1.5 font-body text-xs tracking-[0.14em] uppercase transition-all duration-300 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#d4af37]/40 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0a0806] ${
                 filter === f
-                  ? 'bg-primary text-primary-foreground shadow-[0_8px_18px_rgba(153,117,46,0.35)]'
-                  : 'border border-transparent bg-transparent text-foreground/70 hover:border-primary/25 hover:bg-white/80 hover:text-foreground'
+                  ? 'bg-[#d4af37] text-[#0a0806] shadow-[0_8px_18px_rgba(212,175,55,0.35)]'
+                  : 'border border-transparent bg-transparent text-[#f5e6c0]/70 hover:border-[#d4af37]/25 hover:bg-[#1a1410]/80 hover:text-[#f5e6c0]'
               }`}
             >
               <span className="relative z-10">{f}</span>
@@ -62,7 +66,7 @@ const GallerySection = () => {
         </div>
 
         {/* Mosaic Grid */}
-        <div className="relative z-10 grid grid-cols-1 sm:grid-cols-6 lg:grid-cols-12 sm:auto-rows-[110px] md:auto-rows-[130px] gap-4 md:gap-4">
+        <div className="relative z-10 grid grid-cols-1 sm:grid-cols-6 lg:grid-cols-12 sm:auto-rows-[100px] md:auto-rows-[115px] gap-1 md:gap-2">
           {filtered.map((img, i) => (
             <GalleryImage
               key={`${img.alt}-${i}`}
@@ -78,11 +82,11 @@ const GallerySection = () => {
       {/* Lightbox */}
       {lightbox && (
         <div
-          className="fixed inset-0 z-50 bg-background/90 backdrop-blur-xl flex items-center justify-center p-4 cursor-pointer"
+          className="fixed inset-0 z-50 bg-[#0a0806]/95 backdrop-blur-xl flex items-center justify-center p-4 cursor-pointer"
           onClick={() => setLightbox(null)}
         >
           <img src={lightbox} alt="Gallery" className="max-w-full max-h-[85vh] object-contain" />
-          <button className="absolute top-6 right-6 text-foreground font-display text-2xl cursor-pointer">✕</button>
+          <button className="absolute top-6 right-6 text-[#f5e6c0] font-display text-2xl cursor-pointer">✕</button>
         </div>
       )}
     </section>
@@ -114,19 +118,19 @@ const GalleryImage = ({
       } transition-all duration-700`}
       style={{ transitionDelay: `${index * 100}ms` }}
     >
-      <div className="relative h-full w-full overflow-hidden border border-primary/20 bg-white/50 backdrop-blur-[1px] [border-radius:inherit]">
+      <div className="relative h-full w-full overflow-hidden border border-[#d4af37]/20 bg-[#1a1410]/50 backdrop-blur-[1px] [border-radius:inherit]">
         <img
           src={src}
           alt={alt}
           loading="lazy"
           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
         />
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(25,20,12,0.12),rgba(20,15,10,0.42))] group-hover:bg-[linear-gradient(180deg,rgba(20,15,10,0.08),rgba(20,15,10,0.32))] transition-all duration-500" />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(25,20,12,0.1),rgba(20,15,10,0.25))] group-hover:bg-[linear-gradient(180deg,rgba(20,15,10,0.08),rgba(20,15,10,0.2))] transition-all duration-500" />
         <div className="absolute inset-0 flex items-center justify-center px-4 text-center">
-          <span className="font-display text-lg sm:text-xl md:text-2xl tracking-[0.16em] sm:tracking-[0.22em] text-ivory/95 drop-shadow-[0_3px_8px_rgba(0,0,0,0.45)]">{title}</span>
+          <span className="font-display text-lg sm:text-xl md:text-2xl tracking-[0.16em] sm:tracking-[0.22em] text-[#f5e6c0]/95 drop-shadow-[0_3px_8px_rgba(0,0,0,0.65)]">{title}</span>
         </div>
         <div className="absolute inset-0 flex items-end justify-center pb-5 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          <span className="font-body text-xs tracking-[0.2em] uppercase text-white/90">Open</span>
+          <span className="font-body text-xs tracking-[0.2em] uppercase text-[#f5e6c0]/90">Open</span>
         </div>
       </div>
     </div>
