@@ -1,40 +1,59 @@
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
-import { Scissors, Sparkles, Heart, Palette, Star, Leaf, Hand, User } from 'lucide-react';
 
 const services = [
-  { icon: Scissors, name: 'Hair Styling & Coloring', desc: 'Precision cuts, vibrant coloring, and bespoke styling tailored to your personality.' },
-  { icon: Sparkles, name: 'Bridal Makeup', desc: 'Show-stopping bridal looks crafted to make your special day truly unforgettable.' },
-  { icon: Heart, name: 'Skincare & Facials', desc: 'Rejuvenating facial treatments using premium products for radiant, glowing skin.' },
-  { icon: Palette, name: 'Nail Art & Extensions', desc: 'Exquisite nail designs and extensions for a flawless finish at your fingertips.' },
-  { icon: Star, name: 'Threading & Waxing', desc: 'Precise grooming services for perfectly shaped brows and silky-smooth skin.' },
-  { icon: Leaf, name: 'Hair Spa & Treatment', desc: 'Deep conditioning and repair treatments to restore your hair\'s natural brilliance.' },
-  { icon: Hand, name: 'Mehendi / Henna', desc: 'Intricate traditional and contemporary henna designs for all occasions.' },
-  { icon: User, name: 'Men\'s Grooming', desc: 'Expert grooming services including haircuts, beard styling, and skincare for men.' },
+  { name: 'Hair Styling & Coloring', desc: 'Precision cuts, vibrant coloring, and bespoke styling tailored to your personality.', image: '/hair%20color.jpg', price: '₹599+' },
+  { name: 'Bridal Makeup', desc: 'Show-stopping bridal looks crafted to make your special day truly unforgettable.', image: '/bridal.jpg', price: '₹2,999+' },
+  { name: 'Skincare & Facials', desc: 'Rejuvenating facial treatments using premium products for radiant, glowing skin.', image: '/facial.png', price: '₹699+' },
+  { name: 'Nail Art & Extensions', desc: 'Exquisite nail designs and extensions for a flawless finish at your fingertips.', image: '/nail%20art.jpg', price: '₹399+' },
+  { name: 'Threading & Waxing', desc: 'Precise grooming services for perfectly shaped brows and silky-smooth skin.', image: '/threading.png', price: '₹199+' },
+  { name: 'Hair Spa & Treatment', desc: 'Deep conditioning and repair treatments to restore your hair\'s natural brilliance.', image: '/hairspa.png', price: '₹799+' },
+  { name: 'Mehendi / Henna', desc: 'Intricate traditional and contemporary henna designs for all occasions.', image: '/mehendi.png', price: '₹1,499+' },
+  { name: 'Men\'s Grooming', desc: 'Expert grooming services including haircuts, beard styling, and skincare for men.', image: '/hero-salon.jpg', price: '₹349+' },
 ];
 
-const ServiceCard = ({ icon: Icon, name, desc, index }: { icon: typeof Scissors; name: string; desc: string; index: number }) => {
+const ServiceCard = ({ name, desc, image, price, index }: { name: string; desc: string; image: string; price: string; index: number }) => {
   const { ref, isVisible } = useScrollAnimation(0.1);
 
   return (
     <div
       ref={ref}
-      className={`group relative overflow-hidden rounded-2xl border border-[#bfa57c]/25 bg-white/85 p-7 md:p-8 transition-all duration-700 hover:-translate-y-2 hover:border-primary/45 hover:shadow-[0_22px_45px_rgba(82,64,36,0.18)] ${
-        ''
-      } ${
-        isVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-10 scale-95'
-      }`}
+      className={`group relative overflow-hidden rounded-xl transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-10 scale-95'}`}
       style={{ transitionDelay: `${index * 90}ms` }}
     >
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/45 to-transparent" />
-      <div className="pointer-events-none absolute -right-10 -top-10 h-28 w-28 rounded-full bg-primary/10 blur-2xl transition-opacity duration-700 group-hover:opacity-100 opacity-40" />
-
-      <div className="relative z-10 w-12 h-12 rounded-full border border-primary/30 bg-[linear-gradient(135deg,rgba(246,236,218,0.9),rgba(255,255,255,0.9))] flex items-center justify-center mb-6 transition-all duration-500 group-hover:border-primary group-hover:scale-110">
-        <Icon className="w-5 h-5 text-primary" />
+      {/* Card background */}
+      <div className="absolute inset-0 bg-white rounded-xl shadow-lg group-hover:shadow-2xl transition-shadow duration-700" />
+      
+      {/* Content wrapper */}
+      <div className="relative z-10 flex flex-col h-full">
+        {/* Image top section */}
+        <div className="relative overflow-hidden h-40 md:h-48 bg-[#f0ede8]">
+          <img
+            src={image}
+            alt={name}
+            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+            loading="lazy"
+          />
+          {/* Service number */}
+          <div className="absolute top-3 right-3 bg-white/95 px-3 py-1 rounded-full shadow-md">
+            <span className="font-display text-sm font-semibold text-[#8a6a3a]">{String(index + 1).padStart(2, '0')}</span>
+          </div>
+        </div>
+        
+        {/* Text content */}
+        <div className="flex-1 flex flex-col p-5 md:p-6">
+          <h3 className="font-display text-lg md:text-xl text-[#2e2518] mb-2 leading-tight group-hover:text-[#8a6a3a] transition-colors duration-500">{name}</h3>
+          <p className="font-body text-sm text-[#6b5a43] leading-relaxed mb-4 flex-1 line-clamp-2">{desc}</p>
+          
+          {/* Divider line */}
+          <div className="h-px bg-[#bfa57c]/30 mb-4 group-hover:bg-[#d4af37]/60 transition-colors duration-500" />
+          
+          {/* Price section */}
+          <div className="flex items-end justify-between">
+            <span className="font-body text-xs text-[#8a6a3a] uppercase tracking-wide">Starting from</span>
+            <span className="font-body text-base text-[#2e2518] group-hover:text-[#8a6a3a] transition-colors duration-500">{price}</span>
+          </div>
+        </div>
       </div>
-      <h3 className="relative z-10 font-display text-2xl text-[#2e2518] mb-3 leading-tight">{name}</h3>
-      <p className="relative z-10 font-body text-sm text-[#6b5a43] leading-relaxed">{desc}</p>
-
-      <div className="relative z-10 mt-6 h-px w-0 bg-gradient-to-r from-primary to-transparent transition-all duration-500 group-hover:w-24" />
     </div>
   );
 };

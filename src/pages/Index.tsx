@@ -4,6 +4,7 @@ import AboutSection from '@/components/AboutSection';
 import ServicesSection from '@/components/ServicesSection';
 import WhyChooseUs from '@/components/WhyChooseUs';
 import GallerySection from '@/components/GallerySection';
+import DividerSection from '@/components/DividerSection';
 import TestimonialsSection from '@/components/TestimonialsSection';
 import BookingSection from '@/components/BookingSection';
 import Footer from '@/components/Footer';
@@ -16,10 +17,11 @@ const Index = () => {
       <CustomCursor />
       <Navbar />
       <HeroSection />
+      <WhyChooseUs />
       <AboutSection />
       <ServicesSection />
-      <WhyChooseUs />
       <GallerySection />
+      <DividerSection />
       <TestimonialsSection />
       <BookingSection />
       <Footer />

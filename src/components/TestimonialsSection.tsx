@@ -26,21 +26,21 @@ const TestimonialsSection = () => {
   return (
     <section
       id="testimonials"
-      className="relative py-20 md:py-28 overflow-hidden bg-[linear-gradient(170deg,#17181c_0%,#22252b_46%,#1a1d23_100%)]"
+      className="relative py-20 md:py-28 overflow-hidden bg-[#0a0806]"
     >
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_16%_22%,rgba(255,255,255,0.05),transparent_30%),radial-gradient(circle_at_84%_20%,rgba(255,215,140,0.09),transparent_30%)]" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_16%_22%,rgba(212,175,55,0.08),transparent_30%),radial-gradient(circle_at_84%_20%,rgba(212,175,55,0.05),transparent_30%)]" />
 
       <div className="container relative z-10 mx-auto px-4 md:px-8">
         <div ref={ref} className={`text-center mb-16 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          <h2 className="font-display text-4xl md:text-5xl italic text-white mb-4">What Our Clients Say</h2>
-          <div className={`h-px bg-primary mx-auto transition-all duration-1000 ${isVisible ? 'w-20' : 'w-0'}`} style={{ transitionDelay: '300ms' }} />
+          <h2 className="font-display text-4xl md:text-5xl italic text-[#f5e6c0] mb-4">What Our Clients Say</h2>
+          <div className={`h-px bg-[#d4af37] mx-auto transition-all duration-1000 ${isVisible ? 'w-20' : 'w-0'}`} style={{ transitionDelay: '300ms' }} />
         </div>
       </div>
 
       <div className="relative z-10 px-4 md:px-12 mt-16">
         <div
           ref={scrollRef}
-          className="flex gap-6 overflow-x-auto scrollbar-hide pb-6"
+          className="flex gap-6 overflow-x-auto pb-2 [&::-webkit-scrollbar]:h-1 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-[#d4af37]/40 [&::-webkit-scrollbar-thumb]:rounded-full hover:[&::-webkit-scrollbar-thumb]:bg-[#d4af37]/60"
           style={{ scrollBehavior: 'smooth' }}
           onMouseEnter={() => {
             isPausedRef.current = true;
@@ -52,28 +52,28 @@ const TestimonialsSection = () => {
           {[...testimonials, ...testimonials].map((t, i) => (
             <div
               key={i}
-              className="group flex-shrink-0 w-[350px] md:w-[400px] rounded-2xl border border-white/14 bg-slate-900/45 backdrop-blur-md p-8 shadow-[0_16px_40px_rgba(12,14,18,0.4)] transition-all duration-300 hover:bg-slate-900/60 cursor-pointer"
+              className="group flex-shrink-0 w-[350px] md:w-[400px] rounded-2xl border border-[#d4af37]/20 bg-[#1a1410]/60 backdrop-blur-md p-8 shadow-[0_16px_40px_rgba(10,8,6,0.4)] transition-all duration-300 hover:bg-[#1a1410]/80 cursor-pointer"
               onMouseEnter={(e) => {
                 (e.currentTarget as HTMLElement).style.animation = 'borderGlow 2s ease-in-out infinite';
               }}
               onMouseLeave={(e) => {
                 (e.currentTarget as HTMLElement).style.animation = 'none';
-                (e.currentTarget as HTMLElement).style.boxShadow = '0 16px 40px rgba(12, 14, 18, 0.4)';
-                (e.currentTarget as HTMLElement).style.borderColor = 'rgb(255 255 255 / 0.14)';
+                (e.currentTarget as HTMLElement).style.boxShadow = '0 16px 40px rgba(10, 8, 6, 0.4)';
+                (e.currentTarget as HTMLElement).style.borderColor = 'rgb(212 175 55 / 0.2)';
               }}
             >
-              <div className="font-display text-5xl text-primary/30 mb-4 group-hover:text-primary/50 transition-colors duration-500">"</div>
-              <p className="font-body text-slate-300 leading-relaxed mb-6 group-hover:text-slate-100 transition-colors duration-500">{t.text}</p>
+              <div className="font-display text-5xl text-[#d4af37]/30 mb-4 group-hover:text-[#d4af37]/50 transition-colors duration-500">"</div>
+              <p className="font-body text-[#f5e6c0] leading-relaxed mb-6 group-hover:text-white transition-colors duration-500" style={{ opacity: '0.85' }}>{t.text}</p>
               <div className="flex gap-1 mb-3">
                 {Array.from({ length: t.rating }).map((_, j) => (
-                  <span key={j} className="text-primary text-sm group-hover:scale-110 transition-transform duration-300" style={{ transitionDelay: `${j * 30}ms` }}>★</span>
+                  <span key={j} className="text-[#d4af37] text-sm group-hover:scale-110 transition-transform duration-300" style={{ transitionDelay: `${j * 30}ms` }}>★</span>
                 ))}
               </div>
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-white/5 border border-white/15 flex items-center justify-center group-hover:bg-primary/20 group-hover:border-primary/50 transition-all duration-500">
-                  <span className="font-display text-sm text-primary">{t.name[0]}</span>
+                <div className="w-10 h-10 rounded-full bg-[#d4af37]/10 border border-[#d4af37]/25 flex items-center justify-center group-hover:bg-[#d4af37]/20 group-hover:border-[#d4af37]/50 transition-all duration-500">
+                  <span className="font-display text-sm text-[#d4af37]">{t.name[0]}</span>
                 </div>
-                <span className="font-body text-sm text-slate-100 group-hover:text-white transition-colors duration-500">{t.name}</span>
+                <span className="font-body text-sm text-[#f5e6c0] group-hover:text-white transition-colors duration-500">{t.name}</span>
               </div>
             </div>
           ))}
